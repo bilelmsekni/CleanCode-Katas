@@ -1,2 +1,2 @@
 # CleanCode-Katas
-Different Katas to lean how to write clean code in C# and Java
+Different Katas to learn how to write clean code in C# and Java
