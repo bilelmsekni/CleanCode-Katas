@@ -2,7 +2,7 @@ using System;
 
 namespace SolidPrinciples.Services
 {
-    internal class InventoryService
+    internal class Inventory
     {
         public void Reserve(string itemId, int quantity)
         {

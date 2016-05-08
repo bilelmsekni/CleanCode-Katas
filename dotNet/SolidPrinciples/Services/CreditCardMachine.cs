@@ -2,7 +2,7 @@ using System;
 
 namespace SolidPrinciples.Services
 {
-    internal class PaymentService : IDisposable
+    public class CreditCardMachine : IDisposable
     {
         public void Dispose()
         {

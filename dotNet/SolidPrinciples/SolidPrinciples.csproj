@@ -41,10 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hardware.Api\HpPrinter.cs" />
+    <Compile Include="Utilities\Exceptions\UnAuthorizedContactLessPayment.cs" />
+    <Compile Include="Utilities\Exceptions\NotValidPaymentException.cs" />
     <Compile Include="Model\OrderItem.cs" />
     <Compile Include="OrderTests.cs" />
     <Compile Include="Utilities\Exceptions\InsufficientInventoryException.cs" />
-    <Compile Include="Services\InventoryService.cs" />
+    <Compile Include="Services\Inventory.cs" />
     <Compile Include="Hardware.Api\IPrinter.cs" />
     <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Model\Receipt.cs" />
@@ -53,8 +55,8 @@
     <Compile Include="Model\Order.cs" />
     <Compile Include="Utilities\Exceptions\OrderException.cs" />
     <Compile Include="Model\PaymentDetails.cs" />
-    <Compile Include="Services\PaymentService.cs" />
-    <Compile Include="Model\PaymentMethod.cs" />
+    <Compile Include="Services\CreditCardMachine.cs" />
+    <Compile Include="Model\CreditCardType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

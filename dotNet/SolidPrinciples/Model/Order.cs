@@ -8,7 +8,7 @@ namespace SolidPrinciples.Model
 {
     public class Order
     {
-        readonly IPrinter printer;
+        readonly HpPrinter printer;
 
         public Order()
         {
@@ -17,17 +17,32 @@ namespace SolidPrinciples.Model
 
         public void ExecuteOrder(Cart cart, PaymentDetails paymentDetails, bool printReceipt)
         {
-            if (paymentDetails.PaymentMethod == PaymentMethod.CreditCard)
+            if (paymentDetails.PaymentMethod == PaymentMethod.ContactCreditCard)
             {
                 ChargeCard(paymentDetails, cart);
             }
+            else if (paymentDetails.PaymentMethod == PaymentMethod.ContactLessCreditCard)
+            {
+                AuthorizePayement(cart.TotalAmount);
+                ChargeCard(paymentDetails, cart);
+            }
+            else
+            {
+                throw new NotValidPaymentException("Can not charge customer");
+            }
 
-            ReserveInventory(cart);
+            ReserveCartItems(cart);
 
             if (printReceipt)
             {
                 PrintReceipt(cart);
             }
+        }
+
+        private void AuthorizePayement(double purchaseAmount)
+        {
+            if (purchaseAmount > 20) throw new UnAuthorizedContactLessPayment("Amount is too big");
+            Logger.Info(string.Format("Payement for {0} has been authorized", purchaseAmount));
         }
 
         private void PrintReceipt(Cart cart)
@@ -57,15 +72,14 @@ namespace SolidPrinciples.Model
             }
         }
 
-        private void ReserveInventory(Cart cart)
+        private void ReserveCartItems(Cart cart)
         {
+            var inventory = new Inventory();
             foreach (var item in cart.Items)
             {
                 try
                 {
-                    var inventoryService = new InventoryService();
-                    inventoryService.Reserve(item.ItemId, item.Quantity);
-
+                    inventory.Reserve(item.ItemId, item.Quantity);
                 }
                 catch (InsufficientInventoryException ex)
                 {
@@ -80,18 +94,17 @@ namespace SolidPrinciples.Model
 
         private void ChargeCard(PaymentDetails paymentDetails, Cart cart)
         {
-            using (var paymentService = new PaymentService())
+            using (var ccMachine = new CreditCardMachine())
             {
                 try
-                {
-                    paymentService.Credentials = paymentDetails.Credentials;
-                    paymentService.CardNumber = paymentDetails.CreditCardNumber;
-                    paymentService.ExpiresMonth = paymentDetails.ExpiresMonth;
-                    paymentService.ExpiresYear = paymentDetails.ExpiresYear;
-                    paymentService.NameOnCard = paymentDetails.CardholderName;
-                    paymentService.AmountToCharge = cart.TotalAmount;
+                {                    
+                    ccMachine.CardNumber = paymentDetails.CreditCardNumber;
+                    ccMachine.ExpiresMonth = paymentDetails.ExpiresMonth;
+                    ccMachine.ExpiresYear = paymentDetails.ExpiresYear;
+                    ccMachine.NameOnCard = paymentDetails.CardholderName;
+                    ccMachine.AmountToCharge = cart.TotalAmount;
 
-                    paymentService.Charge();
+                    ccMachine.Charge();
                 }
                 catch (RejectedCardException ex)
                 {
