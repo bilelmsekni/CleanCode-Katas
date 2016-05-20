@@ -1,0 +1,8 @@
+language: csharp
+solution: CleanCode.sln
+before_install:
+  - sudo apt-get install nunit-console
+before_script:
+  - nuget restore CleanCode.sln
+after_script:
+  - nunit-console NamingAndCommenting/bin/Release/NamingAndCommenting.dll
