@@ -2,10 +2,15 @@ using System;
 
 namespace SolidPrinciples.Utilities.Exceptions
 {
-    internal class OrderException : Exception
+    public class OrderException : Exception
     {
-        public OrderException(string exceptionMessage, Exception innerException):
-            base(exceptionMessage, innerException)
+        public OrderException(string exceptionMessage):
+            base(exceptionMessage)
+        {
+        }
+
+        public OrderException(string exceptionMessage, OrderException innerException) :
+    base(exceptionMessage, innerException)
         {
         }
     }

@@ -85,10 +85,6 @@ namespace SolidPrinciples.Model
                 {
                     throw new OrderException("Insufficient inventory for item " + item.ItemId, ex);
                 }
-                catch (Exception ex)
-                {
-                    throw new OrderException("Problem reserving inventory", ex);
-                }
             }
         }
 
@@ -109,10 +105,6 @@ namespace SolidPrinciples.Model
                 catch (RejectedCardException ex)
                 {
                     throw new OrderException("The card gateway rejected the card.", ex);
-                }
-                catch (Exception ex)
-                {
-                    throw new OrderException("There was a problem with your card.", ex);
                 }
             }
         }

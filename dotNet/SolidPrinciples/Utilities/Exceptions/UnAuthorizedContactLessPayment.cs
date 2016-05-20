@@ -2,11 +2,11 @@
 
 namespace SolidPrinciples.Utilities.Exceptions
 {
-    internal class UnAuthorizedContactLessPayment : Exception
+    internal class UnAuthorizedContactLessPayment : OrderException
     {
         public UnAuthorizedContactLessPayment(string message)
+            : base (message)
         {
-            throw new OrderException(message, this);
         }
     }
 }

@@ -2,11 +2,11 @@ using System;
 
 namespace SolidPrinciples.Utilities.Exceptions
 {
-    public class NotValidPaymentException : Exception
+    public class NotValidPaymentException : OrderException
     {
         public NotValidPaymentException(string message)
+            :base(message)
         {
-            throw new OrderException(message, this);
         }
     }
 }

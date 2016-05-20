@@ -2,7 +2,10 @@ using System;
 
 namespace SolidPrinciples.Utilities.Exceptions
 {
-    internal class RejectedCardException : Exception
+    internal class RejectedCardException : OrderException
     {
+        public RejectedCardException(string exceptionMessage) : base(exceptionMessage)
+        {
+        }
     }
 }

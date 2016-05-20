@@ -2,7 +2,10 @@ using System;
 
 namespace SolidPrinciples.Utilities.Exceptions
 {
-    internal class InsufficientInventoryException : Exception
+    public class InsufficientInventoryException : OrderException
     {
+        public InsufficientInventoryException(string exceptionMessage) : base(exceptionMessage)
+        {
+        }
     }
 }
