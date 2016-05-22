@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SolidPrinciples.Model;
 using Ploeh.AutoFixture;
@@ -23,77 +18,110 @@ namespace SolidPrinciples
         }
 
         [Test]
-        public void Should_execute_order_when_cart_is_ready_and_payment_is_with_contact_and_print_receipt()
+        public void Should_execute_order_when_payment_is_with_contact_and_print_receipt()
         {
-            var fakeCart = fixture.Build<Order>().Create();
+            var order = fixture.Build<Order>().Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
-                .With(c=>c.PaymentMethod, PaymentMethod.ContactCreditCard)                
+                .With(c => c.PaymentMethod, PaymentMethod.ContactCreditCard)
                 .Create();
             var fakePrintReceipt = true;
 
-            var order = new Restaurant();
-            order.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt);                        
+            var restaurant = new Restaurant();
+            restaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
-        public void Should_execute_order_when_cart_is_ready_and_payment_is_with_contactless_and_print_receipt()
+        public void Should_execute_order_when_payment_is_with_contactless_and_print_receipt()
         {
-            var fakeCart = fixture.Build<Order>()
-                .With(c=>c.TotalAmount, 19)
+            var orderItems = fixture.Build<OrderItem>()
+                .With(c => c.Quantity, 1)
+                .With(c => c.Price, 5)
+                .With(c => c.Discount, 0)
+                .CreateMany(3);
+            var fakeOrder = fixture.Build<Order>()
+                .With(c => c.Items, orderItems)
                 .Create();
+
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
                 .With(c => c.PaymentMethod, PaymentMethod.ContactLessCreditCard)
                 .Create();
             var fakePrintReceipt = true;
 
-            var order = new Restaurant();
-            order.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt);
+            var restaurant = new Restaurant();
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
-        public void Should_throw_exception_when_order_amount_is_29_and_payment_is_with_contactless()
+        public void Should_throw_exception_when_order_amount_is_25_and_payment_is_with_contactless()
         {
-            var fakeCart = fixture.Build<Order>()
-                .With(c => c.TotalAmount, 29)
+            var orderItems = fixture.Build<OrderItem>()
+                .With(c => c.Quantity, 1)
+                .With(c => c.Price, 5)
+                .With(c => c.Discount, 0)
+                .CreateMany(5);
+
+            var fakeOrder = fixture.Build<Order>()
+                .With(c => c.Items, orderItems)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
                 .With(c => c.PaymentMethod, PaymentMethod.ContactLessCreditCard)
                 .Create();
+
             var fakePrintReceipt = true;
 
-            var order = new Restaurant();
-            order.Invoking(y => y.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt))
+            var restaurant = new Restaurant();
+            restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<UnAuthorizedContactLessPayment>()
-                .WithMessage("Amount is too big");           
+                .WithMessage("Amount is too big");
         }
 
         [Test]
         public void Should_throw_NotValidPaymentException_when_payement_Method_is_mobile()
         {
-            var fakeCart = fixture.Build<Order>()
-                .With(c => c.TotalAmount, 10)
+            var fakeOrder = fixture.Build<Order>()
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
                 .With(c => c.PaymentMethod, PaymentMethod.Mobile)
                 .Create();
             var fakePrintReceipt = true;
 
-            var order = new Restaurant();
-            order.Invoking(y => y.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt))
+            var restaurant = new Restaurant();
+            restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<NotValidPaymentException>()
                 .WithMessage("Can not charge customer");
         }
 
         [Test]
-        public void Should_execute_order_when_cart_is_ready_but_without_print_receipt()
+        public void Should_execute_order_when_payement_with_contact_but_without_print_receipt()
         {
-            var fakeCart = fixture.Build<Order>().Create();
+            var fakeOrder = fixture.Build<Order>().Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
+                .With(c=>c.PaymentMethod, PaymentMethod.ContactCreditCard)
                 .Create();
             var fakePrintReceipt = false;
 
-            var order = new Restaurant();
-            order.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt);
+            var restaurant = new Restaurant();
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+        }
+
+        [Test]
+        public void Should_execute_order_when_payement_with_contactless_but_without_print_receipt()
+        {
+            var orderItems = fixture.Build<OrderItem>()
+                .With(c => c.Quantity, 1)
+                .With(c => c.Price, 5)
+                .With(c => c.Discount, 0)
+                .CreateMany(3);
+            var fakeOrder = fixture.Build<Order>()
+                .With(c=>c.Items, orderItems)
+                .Create();
+            var fakePaymentDetails = fixture.Build<PaymentDetails>()
+                .With(c => c.PaymentMethod, PaymentMethod.ContactLessCreditCard)
+                .Create();
+            var fakePrintReceipt = false;
+
+            var restaurant = new Restaurant();
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
     }
 }

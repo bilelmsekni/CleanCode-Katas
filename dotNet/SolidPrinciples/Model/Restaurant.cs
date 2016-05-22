@@ -17,6 +17,7 @@ namespace SolidPrinciples.Model
 
         public void ExecuteOrder(Order order, PaymentDetails paymentDetails, bool printReceipt)
         {
+            CalculateAmount(order);
             if (paymentDetails.PaymentMethod == PaymentMethod.ContactCreditCard)
             {
                 ChargeCard(paymentDetails, order);
@@ -37,6 +38,16 @@ namespace SolidPrinciples.Model
             {
                 PrintReceipt(order);
             }
+        }
+
+        private void CalculateAmount(Order order)
+        {
+            var total = 0d;
+            foreach (var item in order.Items)
+            {
+                total += item.Price * item.Quantity - item.Discount;
+            }
+            order.TotalAmount = total;
         }
 
         private void AuthorizePayement(double purchaseAmount)
@@ -68,7 +79,7 @@ namespace SolidPrinciples.Model
                 {
                     Logger.Error("Problem sending notification email", ex);
                 }
-                
+
             }
         }
 
@@ -93,7 +104,7 @@ namespace SolidPrinciples.Model
             using (var ccMachine = new CreditCardMachine())
             {
                 try
-                {                    
+                {
                     ccMachine.CardNumber = paymentDetails.CreditCardNumber;
                     ccMachine.ExpiresMonth = paymentDetails.ExpiresMonth;
                     ccMachine.ExpiresYear = paymentDetails.ExpiresYear;
