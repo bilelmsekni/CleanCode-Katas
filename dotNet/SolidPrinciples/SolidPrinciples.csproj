@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hardware.Api\HpPrinter.cs" />
+    <Compile Include="Model\PaymentMethod.cs" />
     <Compile Include="Utilities\Exceptions\UnAuthorizedContactLessPayment.cs" />
     <Compile Include="Utilities\Exceptions\NotValidPaymentException.cs" />
     <Compile Include="Model\OrderItem.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="Utilities\Exceptions\OrderException.cs" />
     <Compile Include="Model\PaymentDetails.cs" />
     <Compile Include="Services\CreditCardMachine.cs" />
-    <Compile Include="Model\CreditCardType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

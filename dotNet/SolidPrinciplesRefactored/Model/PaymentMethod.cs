@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SolidPrinciplesRefactored.Model
 {
-    public class PaymentDetails
+    public enum PaymentMethod
     {
-        public PaymentMethod PaymentMethod{ get; set; }
+        ContactCreditCard,
+        ContactLessCreditCard,
+        Mobile
     }
 }
