@@ -11,7 +11,12 @@ namespace SolidPrinciplesRefactored.Services
     {
         public double CalculateOrderAmount(List<OrderItem> items)
         {
-            throw new NotImplementedException();
+            var total = 0d;
+            foreach (var item in items)
+            {
+                total += item.Price * item.Quantity - item.Discount;
+            }
+            return total;
         }
     }
 }

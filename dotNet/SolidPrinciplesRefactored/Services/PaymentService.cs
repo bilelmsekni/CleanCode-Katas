@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SolidPrinciplesRefactored.Model;
+using SolidPrinciplesRefactored.Utilities;
+using SolidPrinciplesRefactored.Utilities.Exceptions;
 
 namespace SolidPrinciplesRefactored.Services
 {
@@ -11,7 +8,53 @@ namespace SolidPrinciplesRefactored.Services
     {
         public void Charge(PaymentDetails paymentDetails, double totalAmount)
         {
-            throw new NotImplementedException();
+            if (paymentDetails.PaymentMethod == PaymentMethod.ContactCreditCard)
+            {
+                ChargeCard(paymentDetails, totalAmount);
+            }
+            else if (paymentDetails.PaymentMethod == PaymentMethod.ContactLessCreditCard)
+            {
+                AuthorizePayement(totalAmount);
+                ChargeCard(paymentDetails, totalAmount);
+            }
+            else
+            {
+                throw new NotValidPaymentException("Can not charge customer");
+            }
         }
+
+        private void AuthorizePayement(double totalAmount)
+        {
+            if (totalAmount > 20) throw new UnAuthorizedContactLessPayment("Amount is too big");
+            Logger.Info(string.Format("Payement for {0} has been authorized", totalAmount));
+        }
+
+        private void ChargeCard(PaymentDetails paymentDetails, double totalAmount)
+        {
+            using (var ccMachine = new CreditCardMachine())
+            {
+                try
+                {
+                    ccMachine.CardNumber = paymentDetails.CreditCardNumber;
+                    ccMachine.ExpiresMonth = paymentDetails.ExpiresMonth;
+                    ccMachine.ExpiresYear = paymentDetails.ExpiresYear;
+                    ccMachine.NameOnCard = paymentDetails.CardholderName;
+                    ccMachine.AmountToCharge = totalAmount;
+
+                    ccMachine.Charge();
+                }
+                catch (RejectedCardException ex)
+                {
+                    throw new OrderException("The card gateway rejected the card.", ex);
+                }
+            }
+        }
+    }
+
+    internal class UnAuthorizedContactLessPayment : OrderException
+    {
+        public UnAuthorizedContactLessPayment(string exceptionMessage)
+            : base(exceptionMessage)
+        { }
     }
 }

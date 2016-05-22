@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SolidPrinciplesRefactored.Model;
 
 namespace SolidPrinciplesRefactored.Services
@@ -11,7 +6,7 @@ namespace SolidPrinciplesRefactored.Services
     {
         public void Prepare(Order order)
         {
-            throw new NotImplementedException();
+            //Do some cooking
         }
     }
 }

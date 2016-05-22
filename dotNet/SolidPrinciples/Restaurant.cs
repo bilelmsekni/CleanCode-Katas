@@ -89,14 +89,7 @@ namespace SolidPrinciples
             var cooker = new CookingService();
             foreach (var item in order.Items)
             {
-                try
-                {
-                    cooker.Prepare(item.ItemId, item.Quantity);
-                }
-                catch (InsufficientInventoryException ex)
-                {
-                    throw new OrderException("Insufficient inventory for item " + item.ItemId, ex);
-                }
+                cooker.Prepare(item.ItemId, item.Quantity);
             }
         }
 

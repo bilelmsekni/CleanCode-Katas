@@ -1,12 +1,12 @@
 using System;
 
-namespace SolidPrinciples.Services
+namespace SolidPrinciplesRefactored.Services
 {
     public class CreditCardMachine : IDisposable
     {
         public void Dispose()
         {
-            //Disposing            
+            //Disposing    
         }
 
         public string CardNumber { get; set; }
@@ -17,7 +17,7 @@ namespace SolidPrinciples.Services
 
         public void Charge()
         {
-            //Doing some charging
+            //Do some charging
         }
     }
 }

@@ -63,7 +63,6 @@
     <Compile Include="Utilities\Exceptions\NotValidPaymentException.cs" />
     <Compile Include="Model\OrderItem.cs" />
     <Compile Include="RestaurantTests.cs" />
-    <Compile Include="Utilities\Exceptions\InsufficientInventoryException.cs" />
     <Compile Include="Services\CookingService.cs" />
     <Compile Include="Hardware.Api\IPrinter.cs" />
     <Compile Include="Utilities\Logger.cs" />
