@@ -5,6 +5,6 @@ namespace SolidPrinciplesRefactored.Services
 {
     public interface ICalculatorService
     {
-        double CalculateOrderAmount(List<OrderItem> items);
+        double CalculateOrderAmount(IEnumerable<OrderItem> items);
     }
 }

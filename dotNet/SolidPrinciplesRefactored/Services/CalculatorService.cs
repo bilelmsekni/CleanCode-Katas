@@ -5,7 +5,7 @@ namespace SolidPrinciplesRefactored.Services
 {
     public class CalculatorService : ICalculatorService
     {
-        public double CalculateOrderAmount(List<OrderItem> items)
+        public double CalculateOrderAmount(IEnumerable<OrderItem> items)
         {
             var total = 0d;
             foreach (var item in items)
