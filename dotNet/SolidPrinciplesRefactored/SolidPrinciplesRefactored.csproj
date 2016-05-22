@@ -75,6 +75,7 @@
     <Compile Include="Services\PaymentService.cs" />
     <Compile Include="Services\PrintService.cs" />
     <Compile Include="Services\Receipt.cs" />
+    <Compile Include="Utilities\Exceptions\UnAuthorizedContactLessPayment.cs" />
     <Compile Include="Utilities\Exceptions\RejectedCardException.cs" />
     <Compile Include="Utilities\Exceptions\NotValidPaymentException.cs" />
     <Compile Include="Utilities\Exceptions\OrderException.cs" />

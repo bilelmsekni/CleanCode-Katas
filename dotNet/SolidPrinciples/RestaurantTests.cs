@@ -76,7 +76,7 @@ namespace SolidPrinciples
         }
 
         [Test]
-        public void Should_throw_NotValidPaymentException_when_payement_Method_is_mobile()
+        public void Should_throw_NotValidPaymentException_when_Payment_Method_is_mobile()
         {
             var fakeOrder = fixture.Build<Order>()
                 .Create();
@@ -92,7 +92,7 @@ namespace SolidPrinciples
         }
 
         [Test]
-        public void Should_execute_order_when_payement_with_contact_but_without_print_receipt()
+        public void Should_execute_order_when_Payment_with_contact_but_without_print_receipt()
         {
             var fakeOrder = fixture.Build<Order>().Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -105,7 +105,7 @@ namespace SolidPrinciples
         }
 
         [Test]
-        public void Should_execute_order_when_payement_with_contactless_but_without_print_receipt()
+        public void Should_execute_order_when_Payment_with_contactless_but_without_print_receipt()
         {
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)

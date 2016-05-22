@@ -14,7 +14,7 @@ namespace SolidPrinciplesRefactored.Services
             }
             else if (paymentDetails.PaymentMethod == PaymentMethod.ContactLessCreditCard)
             {
-                AuthorizePayement(totalAmount);
+                AuthorizePayment(totalAmount);
                 ChargeCard(paymentDetails, totalAmount);
             }
             else
@@ -23,10 +23,10 @@ namespace SolidPrinciplesRefactored.Services
             }
         }
 
-        private void AuthorizePayement(double totalAmount)
+        private void AuthorizePayment(double totalAmount)
         {
             if (totalAmount > 20) throw new UnAuthorizedContactLessPayment("Amount is too big");
-            Logger.Info(string.Format("Payement for {0} has been authorized", totalAmount));
+            Logger.Info(string.Format("Payment for {0} has been authorized", totalAmount));
         }
 
         private void ChargeCard(PaymentDetails paymentDetails, double totalAmount)
@@ -49,12 +49,5 @@ namespace SolidPrinciplesRefactored.Services
                 }
             }
         }
-    }
-
-    internal class UnAuthorizedContactLessPayment : OrderException
-    {
-        public UnAuthorizedContactLessPayment(string exceptionMessage)
-            : base(exceptionMessage)
-        { }
     }
 }

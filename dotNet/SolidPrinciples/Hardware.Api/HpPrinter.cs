@@ -1,4 +1,3 @@
-using System;
 using SolidPrinciples.Model;
 
 namespace SolidPrinciples.Hardware.Api

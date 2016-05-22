@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SolidPrinciples.Utilities.Exceptions
+﻿namespace SolidPrinciples.Utilities.Exceptions
 {
     internal class UnAuthorizedContactLessPayment : OrderException
     {

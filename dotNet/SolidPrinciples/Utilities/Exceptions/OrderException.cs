@@ -9,7 +9,7 @@ namespace SolidPrinciples.Utilities.Exceptions
         {
         }
 
-        public OrderException(string exceptionMessage, Exception innerException) :
+        public OrderException(string exceptionMessage, OrderException innerException) :
     base(exceptionMessage, innerException)
         {
         }

@@ -25,7 +25,7 @@ namespace SolidPrinciples
             }
             else if (paymentDetails.PaymentMethod == PaymentMethod.ContactLessCreditCard)
             {
-                AuthorizePayement(order.TotalAmount);
+                AuthorizePayment(order.TotalAmount);
                 ChargeCard(paymentDetails, order);
             }
             else
@@ -51,10 +51,10 @@ namespace SolidPrinciples
             order.TotalAmount = total;
         }
 
-        private void AuthorizePayement(double purchaseAmount)
+        private void AuthorizePayment(double purchaseAmount)
         {
             if (purchaseAmount > 20) throw new UnAuthorizedContactLessPayment("Amount is too big");
-            Logger.Info(string.Format("Payement for {0} has been authorized", purchaseAmount));
+            Logger.Info(string.Format("Payment for {0} has been authorized", purchaseAmount));
         }
 
         private void PrintReceipt(Order order)

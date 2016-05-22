@@ -1,5 +1,3 @@
-using System;
-
 namespace SolidPrinciples.Services
 {
     internal class CookingService

@@ -1,5 +1,3 @@
-using System;
-
 namespace SolidPrinciples.Utilities.Exceptions
 {
     public class NotValidPaymentException : OrderException
