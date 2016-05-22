@@ -7,7 +7,7 @@ using SolidPrinciples.Utilities.Exceptions;
 namespace SolidPrinciples
 {
     [TestFixture]
-    public class RestaurantTests
+    public class McBurgerRestaurantTests
     {
         private Fixture fixture;
 
@@ -26,7 +26,7 @@ namespace SolidPrinciples
                 .Create();
             var fakePrintReceipt = true;
 
-            var restaurant = new Restaurant();
+            var restaurant = new McBurgerRestaurant();
             restaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
         }
 
@@ -36,7 +36,7 @@ namespace SolidPrinciples
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 5)
-                .With(c => c.Discount, 0)
+                .With(c=>c.ItemId, "Drink")
                 .CreateMany(3);
             var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
@@ -47,7 +47,7 @@ namespace SolidPrinciples
                 .Create();
             var fakePrintReceipt = true;
 
-            var restaurant = new Restaurant();
+            var restaurant = new McBurgerRestaurant();
             restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
@@ -56,8 +56,8 @@ namespace SolidPrinciples
         {
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
-                .With(c => c.Price, 5)
-                .With(c => c.Discount, 0)
+                .With(c => c.Price, 7)
+                .With(c => c.ItemId, "Drink")
                 .CreateMany(5);
 
             var fakeOrder = fixture.Build<Order>()
@@ -69,7 +69,7 @@ namespace SolidPrinciples
 
             var fakePrintReceipt = true;
 
-            var restaurant = new Restaurant();
+            var restaurant = new McBurgerRestaurant();
             restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<UnAuthorizedContactLessPayment>()
                 .WithMessage("Amount is too big");
@@ -85,7 +85,7 @@ namespace SolidPrinciples
                 .Create();
             var fakePrintReceipt = true;
 
-            var restaurant = new Restaurant();
+            var restaurant = new McBurgerRestaurant();
             restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<NotValidPaymentException>()
                 .WithMessage("Can not charge customer");
@@ -100,7 +100,7 @@ namespace SolidPrinciples
                 .Create();
             var fakePrintReceipt = false;
 
-            var restaurant = new Restaurant();
+            var restaurant = new McBurgerRestaurant();
             restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
@@ -110,7 +110,7 @@ namespace SolidPrinciples
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 5)
-                .With(c => c.Discount, 0)
+                .With(c => c.ItemId, "Drink")
                 .CreateMany(3);
             var fakeOrder = fixture.Build<Order>()
                 .With(c=>c.Items, orderItems)
@@ -120,7 +120,7 @@ namespace SolidPrinciples
                 .Create();
             var fakePrintReceipt = false;
 
-            var restaurant = new Restaurant();
+            var restaurant = new McBurgerRestaurant();
             restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
     }

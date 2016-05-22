@@ -7,11 +7,11 @@ using SolidPrinciples.Utilities.Exceptions;
 
 namespace SolidPrinciples
 {
-    public class Restaurant
+    public class McBurgerRestaurant
     {
         readonly HpPrinter printer;
 
-        public Restaurant()
+        public McBurgerRestaurant()
         {
             printer = new HpPrinter();
         }
@@ -46,7 +46,19 @@ namespace SolidPrinciples
             var total = 0d;
             foreach (var item in order.Items)
             {
-                total += item.Price * item.Quantity - item.Discount;
+                if (item.ItemId == "Drink")
+                {
+                    var setsOfThree = item.Quantity / 3;
+                    total += (item.Quantity - setsOfThree) * item.Price;
+                }
+                else if (item.ItemId == "Burger")
+                {
+                    total += item.Price * item.Quantity;
+                }
+                else if (item.ItemId == "Menu")
+                {
+                    total += item.Price * item.Quantity * 0.9;
+                }
             }
             order.TotalAmount = total;
         }

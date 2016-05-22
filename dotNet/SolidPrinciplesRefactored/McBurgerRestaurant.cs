@@ -3,15 +3,14 @@ using SolidPrinciplesRefactored.Services;
 
 namespace SolidPrinciplesRefactored
 {
-    public class Restaurant
+    public class McBurgerRestaurant
     {
         private ICalculatorService calculatorService;
         private IPaymentService paymentService;
         private ICookingService cookingService;
         private IPrintService printService;
 
-
-        public Restaurant(ICalculatorService calculatorService, IPaymentService paymentService, ICookingService cookingService, IPrintService printService)
+        public McBurgerRestaurant(ICalculatorService calculatorService, IPaymentService paymentService, ICookingService cookingService, IPrintService printService)
         {
             this.calculatorService = calculatorService;
             this.paymentService = paymentService;

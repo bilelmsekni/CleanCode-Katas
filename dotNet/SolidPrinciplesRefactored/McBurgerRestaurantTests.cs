@@ -8,10 +8,10 @@ using SolidPrinciplesRefactored.Utilities.Exceptions;
 namespace SolidPrinciplesRefactored
 {
     [TestFixture]
-    public class RestaurantTests
+    public class McBurgerRestaurantTests
     {
         private Fixture fixture;
-        private Restaurant restaurant;
+        private McBurgerRestaurant mcBurgerRestaurant;
         private ICalculatorService calculatorService;
         private IPaymentService paymentService;
         private ICookingService cookingService;
@@ -25,7 +25,7 @@ namespace SolidPrinciplesRefactored
             paymentService = new PaymentService();
             cookingService = new CookingService();
             printService = new PrintService(); 
-            restaurant = new Restaurant(calculatorService, paymentService, cookingService, printService);
+            mcBurgerRestaurant = new McBurgerRestaurant(calculatorService, paymentService, cookingService, printService);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = true;
 
-            restaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
+            mcBurgerRestaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = true;
 
-            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            mcBurgerRestaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace SolidPrinciplesRefactored
 
             var fakePrintReceipt = true;
 
-            restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
+            mcBurgerRestaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<UnAuthorizedContactLessPayment>()
                 .WithMessage("Amount is too big");
         }
@@ -93,7 +93,7 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = true;
 
-            restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
+            mcBurgerRestaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<NotValidPaymentException>()
                 .WithMessage("Can not charge customer");
         }
@@ -107,7 +107,7 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = false;
 
-            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            mcBurgerRestaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = false;
 
-            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            mcBurgerRestaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
     }
 }

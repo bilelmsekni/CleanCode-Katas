@@ -62,14 +62,14 @@
     <Compile Include="Utilities\Exceptions\UnAuthorizedContactLessPayment.cs" />
     <Compile Include="Utilities\Exceptions\NotValidPaymentException.cs" />
     <Compile Include="Model\OrderItem.cs" />
-    <Compile Include="RestaurantTests.cs" />
+    <Compile Include="McBurgerRestaurantTests.cs" />
     <Compile Include="Services\CookingService.cs" />
     <Compile Include="Hardware.Api\IPrinter.cs" />
     <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Model\Receipt.cs" />
     <Compile Include="Utilities\Exceptions\RejectedCardException.cs" />
     <Compile Include="Model\Order.cs" />
-    <Compile Include="Restaurant.cs" />
+    <Compile Include="McBurgerRestaurant.cs" />
     <Compile Include="Utilities\Exceptions\OrderException.cs" />
     <Compile Include="Model\PaymentDetails.cs" />
     <Compile Include="Services\CreditCardMachine.cs" />
