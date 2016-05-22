@@ -12,7 +12,7 @@ using SolidPrinciples.Utilities.Exceptions;
 namespace SolidPrinciples
 {
     [TestFixture]
-    public class OrderTests
+    public class RestaurantTests
     {
         private Fixture fixture;
 
@@ -25,20 +25,20 @@ namespace SolidPrinciples
         [Test]
         public void Should_execute_order_when_cart_is_ready_and_payment_is_with_contact_and_print_receipt()
         {
-            var fakeCart = fixture.Build<Cart>().Create();
+            var fakeCart = fixture.Build<Order>().Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
                 .With(c=>c.PaymentMethod, PaymentMethod.ContactCreditCard)                
                 .Create();
             var fakePrintReceipt = true;
 
-            var order = new Order();
+            var order = new Restaurant();
             order.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt);                        
         }
 
         [Test]
         public void Should_execute_order_when_cart_is_ready_and_payment_is_with_contactless_and_print_receipt()
         {
-            var fakeCart = fixture.Build<Cart>()
+            var fakeCart = fixture.Build<Order>()
                 .With(c=>c.TotalAmount, 19)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -46,14 +46,14 @@ namespace SolidPrinciples
                 .Create();
             var fakePrintReceipt = true;
 
-            var order = new Order();
+            var order = new Restaurant();
             order.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
         public void Should_throw_exception_when_order_amount_is_29_and_payment_is_with_contactless()
         {
-            var fakeCart = fixture.Build<Cart>()
+            var fakeCart = fixture.Build<Order>()
                 .With(c => c.TotalAmount, 29)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -61,7 +61,7 @@ namespace SolidPrinciples
                 .Create();
             var fakePrintReceipt = true;
 
-            var order = new Order();
+            var order = new Restaurant();
             order.Invoking(y => y.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<UnAuthorizedContactLessPayment>()
                 .WithMessage("Amount is too big");           
@@ -70,7 +70,7 @@ namespace SolidPrinciples
         [Test]
         public void Should_throw_NotValidPaymentException_when_payement_Method_is_mobile()
         {
-            var fakeCart = fixture.Build<Cart>()
+            var fakeCart = fixture.Build<Order>()
                 .With(c => c.TotalAmount, 10)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -78,7 +78,7 @@ namespace SolidPrinciples
                 .Create();
             var fakePrintReceipt = true;
 
-            var order = new Order();
+            var order = new Restaurant();
             order.Invoking(y => y.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<NotValidPaymentException>()
                 .WithMessage("Can not charge customer");
@@ -87,12 +87,12 @@ namespace SolidPrinciples
         [Test]
         public void Should_execute_order_when_cart_is_ready_but_without_print_receipt()
         {
-            var fakeCart = fixture.Build<Cart>().Create();
+            var fakeCart = fixture.Build<Order>().Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
                 .Create();
             var fakePrintReceipt = false;
 
-            var order = new Order();
+            var order = new Restaurant();
             order.ExecuteOrder(fakeCart, fakePaymentDetails, fakePrintReceipt);
         }
     }
