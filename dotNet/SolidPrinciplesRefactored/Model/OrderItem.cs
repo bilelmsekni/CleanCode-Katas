@@ -4,7 +4,6 @@ namespace SolidPrinciplesRefactored.Model
     {
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public double Discount { get; set; }
-        public int ItemId { get; set; }
+        public string ItemId { get; set; }
     }
 }

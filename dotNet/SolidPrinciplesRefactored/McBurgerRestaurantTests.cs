@@ -46,7 +46,7 @@ namespace SolidPrinciplesRefactored
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 5)
-                .With(c => c.Discount, 0)
+                .With(c => c.ItemId, "Drink")
                 .CreateMany(3);
             var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
@@ -66,8 +66,8 @@ namespace SolidPrinciplesRefactored
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 5)
-                .With(c => c.Discount, 0)
-                .CreateMany(5);
+                .With(c => c.ItemId, "Drink")
+                .CreateMany(7);
 
             var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
@@ -116,7 +116,7 @@ namespace SolidPrinciplesRefactored
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 5)
-                .With(c => c.Discount, 0)
+                .With(c => c.ItemId, "Drink")
                 .CreateMany(3);
             var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)

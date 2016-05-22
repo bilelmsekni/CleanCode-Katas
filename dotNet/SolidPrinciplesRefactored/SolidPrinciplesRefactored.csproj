@@ -60,6 +60,10 @@
     <Compile Include="Hardware.Api\HpPrinter.cs" />
     <Compile Include="Model\PaymentMethod.cs" />
     <Compile Include="McBurgerRestaurantTests.cs" />
+    <Compile Include="Services\CalculationRules\BurgerRule.cs" />
+    <Compile Include="Services\CalculationRules\DrinkRule.cs" />
+    <Compile Include="Services\CalculationRules\ICalculationRule.cs" />
+    <Compile Include="Services\CalculationRules\MenuRule.cs" />
     <Compile Include="Services\CalculatorService.cs" />
     <Compile Include="Services\CookingService.cs" />
     <Compile Include="Services\CreditCardMachine.cs" />
