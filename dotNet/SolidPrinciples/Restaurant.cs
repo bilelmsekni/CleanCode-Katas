@@ -1,10 +1,11 @@
 ﻿using System;
 using SolidPrinciples.Hardware.Api;
+using SolidPrinciples.Model;
 using SolidPrinciples.Services;
 using SolidPrinciples.Utilities;
 using SolidPrinciples.Utilities.Exceptions;
 
-namespace SolidPrinciples.Model
+namespace SolidPrinciples
 {
     public class Restaurant
     {

@@ -69,7 +69,7 @@
     <Compile Include="Model\Receipt.cs" />
     <Compile Include="Utilities\Exceptions\RejectedCardException.cs" />
     <Compile Include="Model\Order.cs" />
-    <Compile Include="Model\Restaurant.cs" />
+    <Compile Include="Restaurant.cs" />
     <Compile Include="Utilities\Exceptions\OrderException.cs" />
     <Compile Include="Model\PaymentDetails.cs" />
     <Compile Include="Services\CreditCardMachine.cs" />
