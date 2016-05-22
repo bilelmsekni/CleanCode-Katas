@@ -31,7 +31,7 @@ namespace SolidPrinciples
         }
 
         [Test]
-        public void Should_execute_order_when_payment_is_with_contactless_and_print_receipt()
+        public void Should_execute_order_when_order_is_3_drinks_and_payment_is_contactless_and_print_receipt()
         {
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
@@ -52,13 +52,13 @@ namespace SolidPrinciples
         }
 
         [Test]
-        public void Should_throw_exception_when_order_amount_is_25_and_payment_is_with_contactless()
+        public void Should_throw_exception_when_order_is_5_burgers_and_payment_is_with_contactless()
         {
             var orderItems = fixture.Build<OrderItem>()
-                .With(c => c.Quantity, 1)
-                .With(c => c.Price, 7)
-                .With(c => c.ItemId, "Drink")
-                .CreateMany(5);
+                .With(c => c.Quantity, 5)
+                .With(c => c.Price, 5)
+                .With(c => c.ItemId, "Burger")
+                .CreateMany(1);
 
             var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
@@ -67,7 +67,7 @@ namespace SolidPrinciples
                 .With(c => c.PaymentMethod, PaymentMethod.ContactLessCreditCard)
                 .Create();
 
-            var fakePrintReceipt = true;
+            var fakePrintReceipt = false;
 
             var restaurant = new McBurgerRestaurant();
             restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
@@ -105,13 +105,13 @@ namespace SolidPrinciples
         }
 
         [Test]
-        public void Should_execute_order_when_Payment_with_contactless_but_without_print_receipt()
+        public void Should_execute_order_when_order_is_1_menu_and_Payment_with_contactless_but_without_print_receipt()
         {
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
-                .With(c => c.Price, 5)
-                .With(c => c.ItemId, "Drink")
-                .CreateMany(3);
+                .With(c => c.Price, 10)
+                .With(c => c.ItemId, "Menu")
+                .CreateMany(1);
             var fakeOrder = fixture.Build<Order>()
                 .With(c=>c.Items, orderItems)
                 .Create();

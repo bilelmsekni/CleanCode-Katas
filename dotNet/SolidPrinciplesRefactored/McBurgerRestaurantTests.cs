@@ -11,7 +11,7 @@ namespace SolidPrinciplesRefactored
     public class McBurgerRestaurantTests
     {
         private Fixture fixture;
-        private McBurgerRestaurant mcBurgerRestaurant;
+        private McBurgerRestaurant restaurant;
         private ICalculatorService calculatorService;
         private IPaymentService paymentService;
         private ICookingService cookingService;
@@ -24,8 +24,8 @@ namespace SolidPrinciplesRefactored
             calculatorService = new CalculatorService();
             paymentService = new PaymentService();
             cookingService = new CookingService();
-            printService = new PrintService(); 
-            mcBurgerRestaurant = new McBurgerRestaurant(calculatorService, paymentService, cookingService, printService);
+            printService = new PrintService();
+            restaurant = new McBurgerRestaurant(calculatorService, paymentService, cookingService, printService);
         }
 
         [Test]
@@ -37,11 +37,11 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = true;
 
-            mcBurgerRestaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
+            restaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
-        public void Should_execute_order_when_payment_is_with_contactless_and_print_receipt()
+        public void Should_execute_order_when_order_is_3_drinks_and_payment_is_contactless_and_print_receipt()
         {
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
@@ -57,17 +57,17 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = true;
 
-            mcBurgerRestaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
-        public void Should_throw_exception_when_order_amount_is_25_and_payment_is_with_contactless()
+        public void Should_throw_exception_when_order_is_5_burgers_and_payment_is_with_contactless()
         {
             var orderItems = fixture.Build<OrderItem>()
-                .With(c => c.Quantity, 1)
+                .With(c => c.Quantity, 5)
                 .With(c => c.Price, 5)
-                .With(c => c.ItemId, "Drink")
-                .CreateMany(7);
+                .With(c => c.ItemId, "Burger")
+                .CreateMany(1);
 
             var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
@@ -76,9 +76,9 @@ namespace SolidPrinciplesRefactored
                 .With(c => c.PaymentMethod, PaymentMethod.ContactLessCreditCard)
                 .Create();
 
-            var fakePrintReceipt = true;
+            var fakePrintReceipt = false;
 
-            mcBurgerRestaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
+            restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<UnAuthorizedContactLessPayment>()
                 .WithMessage("Amount is too big");
         }
@@ -93,7 +93,7 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = true;
 
-            mcBurgerRestaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
+            restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .ShouldThrow<NotValidPaymentException>()
                 .WithMessage("Can not charge customer");
         }
@@ -107,17 +107,17 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = false;
 
-            mcBurgerRestaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
-        public void Should_execute_order_when_Payment_with_contactless_but_without_print_receipt()
+        public void Should_execute_order_when_order_is_1_menu_and_Payment_with_contactless_but_without_print_receipt()
         {
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
-                .With(c => c.Price, 5)
-                .With(c => c.ItemId, "Drink")
-                .CreateMany(3);
+                .With(c => c.Price, 10)
+                .With(c => c.ItemId, "Menu")
+                .CreateMany(1);
             var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
                 .Create();
@@ -126,7 +126,7 @@ namespace SolidPrinciplesRefactored
                 .Create();
             var fakePrintReceipt = false;
 
-            mcBurgerRestaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
     }
 }
