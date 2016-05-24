@@ -2,8 +2,8 @@ using System;
 
 namespace SolidPrinciples.Utilities
 {
-    internal class Logger
-    {
+    public class BaseLogger
+    {        
         public static void Error(string message, Exception exception)
         {
             //Logging error    

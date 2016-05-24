@@ -46,16 +46,16 @@ namespace SolidPrinciples
             var total = 0d;
             foreach (var item in order.Items)
             {
-                if (item.ItemId == "Drink")
+                if (item.ItemId == Constants.Drink)
                 {
                     var setsOfThree = item.Quantity / 3;
                     total += (item.Quantity - setsOfThree) * item.Price;
                 }
-                else if (item.ItemId == "Burger")
+                else if (item.ItemId == Constants.CheeseBurger)
                 {
                     total += item.Price * item.Quantity;
                 }
-                else if (item.ItemId == "Menu")
+                else if (item.ItemId == Constants.CheeseBurgerMenu)
                 {
                     total += item.Price * item.Quantity * 0.9;
                 }
@@ -66,7 +66,7 @@ namespace SolidPrinciples
         private void AuthorizePayment(double purchaseAmount)
         {
             if (purchaseAmount > 20) throw new UnAuthorizedContactLessPayment("Amount is too big");
-            Logger.Info(string.Format("Payment for {0} has been authorized", purchaseAmount));
+            BaseLogger.Info(string.Format("Payment for {0} has been authorized", purchaseAmount));
         }
 
         private void PrintReceipt(Order order)
@@ -90,7 +90,7 @@ namespace SolidPrinciples
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error("Problem sending notification email", ex);
+                    BaseLogger.Error("Problem sending notification email", ex);
                 }
 
             }

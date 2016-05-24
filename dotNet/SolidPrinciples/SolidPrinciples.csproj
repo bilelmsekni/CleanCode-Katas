@@ -58,6 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hardware.Api\HpPrinter.cs" />
+    <Compile Include="Model\Constants.cs" />
+    <Compile Include="Model\MenuItem.cs" />
+    <Compile Include="Model\MenuItems\CheeseBurger.cs" />
+    <Compile Include="Model\MenuItems\Drink.cs" />
+    <Compile Include="Model\MenuItems\CheeseBurgerMenu.cs" />
     <Compile Include="Model\PaymentMethod.cs" />
     <Compile Include="Utilities\Exceptions\UnAuthorizedContactLessPayment.cs" />
     <Compile Include="Utilities\Exceptions\NotValidPaymentException.cs" />
@@ -65,7 +70,7 @@
     <Compile Include="McBurgerRestaurantTests.cs" />
     <Compile Include="Services\CookingService.cs" />
     <Compile Include="Hardware.Api\IPrinter.cs" />
-    <Compile Include="Utilities\Logger.cs" />
+    <Compile Include="Utilities\BaseLogger.cs" />
     <Compile Include="Model\Receipt.cs" />
     <Compile Include="Utilities\Exceptions\RejectedCardException.cs" />
     <Compile Include="Model\Order.cs" />
