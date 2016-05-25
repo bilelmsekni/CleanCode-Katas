@@ -18,19 +18,7 @@ namespace SolidPrinciplesRefactored.Services
             foreach (var orderItem in order.Items)
             {
                 var menuItem = restaurantMenu[orderItem.ItemId];
-                if (menuItem is CheeseBurgerMenu || menuItem is CheeseBurger)
-                {
-                    for (int i = 0; i < orderItem.Quantity; i++)
-                    {
-                        menuItem.GetPrerequisites();
-                        menuItem.Prepare();
-                        menuItem.SendToService();
-                    }
-                }
-                else if (menuItem is Drink)
-                {
-                    menuItem.SendToService();
-                }
+                menuItem.SendToService();                
             }            
         }
     }

@@ -1,24 +1,12 @@
 namespace SolidPrinciplesRefactored.Model.MenuItems
 {
-    public class CheeseBurgerMenu : MenuItem
+    public class CheeseBurgerMenu : CheeseBurger
     {
         public override void GetPrerequisites()
         {
-            //Get Bread
-            //Get Ham
-            //Get Salad
-            //Get Fries
+            base.GetPrerequisites();
+            var drink = new Drink();
             //Get Drink
-        }
-
-        public override void Prepare()
-        {
-            //Do some magic
-        }
-
-        public override void SendToService()
-        {
-            // Send menu to customer
         }
     }
 }
