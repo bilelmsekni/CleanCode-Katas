@@ -29,7 +29,6 @@ namespace SolidPrinciples.Services
             {
                 menuItem.SendToService();
             }
-
         }
     }
 }

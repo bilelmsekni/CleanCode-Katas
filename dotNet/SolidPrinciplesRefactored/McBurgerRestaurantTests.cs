@@ -31,7 +31,14 @@ namespace SolidPrinciplesRefactored
         [Test]
         public void Should_execute_order_when_payment_is_with_contact_and_print_receipt()
         {
-            var order = fixture.Build<Order>().Create();
+            var orderItems = fixture.Build<OrderItem>()
+                            .With(c => c.Quantity, 1)
+                            .With(c => c.Price, 10)
+                            .With(c => c.ItemId, Constants.CheeseBurgerMenu)
+                            .CreateMany(1);
+            var order = fixture.Build<Order>()
+                .With(o => o.Items, orderItems)
+                .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
                 .With(c => c.PaymentMethod, PaymentMethod.ContactCreditCard)
                 .Create();
@@ -101,7 +108,14 @@ namespace SolidPrinciplesRefactored
         [Test]
         public void Should_execute_order_when_Payment_with_contact_but_without_print_receipt()
         {
-            var fakeOrder = fixture.Build<Order>().Create();
+            var orderItems = fixture.Build<OrderItem>()
+                            .With(c => c.Quantity, 1)
+                            .With(c => c.Price, 10)
+                            .With(c => c.ItemId, Constants.CheeseBurgerMenu)
+                            .CreateMany(1);
+            var fakeOrder = fixture.Build<Order>()
+                .With(o => o.Items, orderItems)
+                .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
                 .With(c => c.PaymentMethod, PaymentMethod.ContactCreditCard)
                 .Create();
@@ -116,7 +130,7 @@ namespace SolidPrinciplesRefactored
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 10)
-                .With(c => c.ItemId, "Menu")
+                .With(c => c.ItemId, Constants.CheeseBurgerMenu)
                 .CreateMany(1);
             var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
