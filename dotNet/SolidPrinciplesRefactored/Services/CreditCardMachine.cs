@@ -1,4 +1,6 @@
 using System;
+using SolidPrinciplesRefactored.Utilities;
+using SolidPrinciplesRefactored.Utilities.Exceptions;
 
 namespace SolidPrinciplesRefactored.Services
 {
@@ -17,7 +19,26 @@ namespace SolidPrinciplesRefactored.Services
 
         public void Charge()
         {
-            //Do some charging
+            ConnectToGateway("127.0.0.1", CardNumber, ExpiresMonth, ExpiresYear, NameOnCard);
+            Charge(AmountToCharge);
+        }
+
+        private void Charge(double amountToCharge)
+        {
+            //Charge amount
+        }
+
+        private void ConnectToGateway(string gatewayAddress, string cardNumber, string expiresMonth, string expiresYear, string nameOnCard)
+        {
+            try
+            {
+                //connect to gateway
+            }
+            catch (GatewayConnectionException gcException)
+            {
+                Logger.Error(gcException.Message, gcException);
+                throw new OrderException("Can not connect to gateway", gcException);
+            }
         }
     }
 }

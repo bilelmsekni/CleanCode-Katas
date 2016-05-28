@@ -36,7 +36,7 @@ namespace SolidPrinciples.Services
             }
             catch (GatewayConnectionException gcException)
             {
-                BaseLogger.Error(gcException.Message, gcException);
+                Logger.Error(gcException.Message, gcException);
                 throw new OrderException("Can not connect to gateway", gcException);
             }
         }

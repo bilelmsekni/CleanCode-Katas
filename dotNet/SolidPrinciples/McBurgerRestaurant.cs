@@ -66,7 +66,7 @@ namespace SolidPrinciples
         private void AuthorizePayment(double purchaseAmount)
         {
             if (purchaseAmount > 20) throw new UnAuthorizedContactLessPayment("Amount is too big");
-            BaseLogger.Info(string.Format("Payment for {0} has been authorized", purchaseAmount));
+            Logger.Info(string.Format("Payment for {0} has been authorized", purchaseAmount));
         }
 
         private void PrintReceipt(Order order)
@@ -90,7 +90,7 @@ namespace SolidPrinciples
                 }
                 catch (Exception ex)
                 {
-                    BaseLogger.Error("Problem sending notification email", ex);
+                    Logger.Error("Problem sending notification email", ex);
                 }
 
             }

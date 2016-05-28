@@ -2,7 +2,7 @@ using System;
 
 namespace SolidPrinciples.Utilities
 {
-    public class BaseLogger
+    public class Logger
     {        
         public static void Error(string message, Exception exception)
         {

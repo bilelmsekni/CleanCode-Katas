@@ -71,7 +71,7 @@
     <Compile Include="McBurgerRestaurantTests.cs" />
     <Compile Include="Services\CookingService.cs" />
     <Compile Include="Hardware.Api\IMachine.cs" />
-    <Compile Include="Utilities\BaseLogger.cs" />
+    <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Model\Receipt.cs" />
     <Compile Include="Utilities\Exceptions\RejectedCardException.cs" />
     <Compile Include="Model\Order.cs" />
