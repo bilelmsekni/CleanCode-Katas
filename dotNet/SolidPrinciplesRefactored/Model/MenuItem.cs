@@ -2,9 +2,9 @@ namespace SolidPrinciplesRefactored.Model
 {
     public class MenuItem
     {
-        public virtual void SendToService()
+        public virtual MenuItem SendToService()
         {
-            //Send to service
+            return this;
         }
     }
 }

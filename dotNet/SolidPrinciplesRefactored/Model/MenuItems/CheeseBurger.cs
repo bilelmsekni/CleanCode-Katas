@@ -1,25 +1,34 @@
+using System.Collections.Generic;
+
 namespace SolidPrinciplesRefactored.Model.MenuItems
 {
     public class CheeseBurger : MenuItem
     {
-        public virtual void GetPrerequisites()
+        private readonly List<string> ingredients = new List<string>();
+
+        protected virtual void GetPrerequisites()
         {
-            //Get Bread
-            //Get Ham
-            //Get Salad
-            //Get Fries       
+            ingredients.Add("Bread");
+            ingredients.Add("Ham");
+            ingredients.Add("Salad");
+            ingredients.Add("Fries");            
         }
 
-        public virtual void Prepare()
+        protected virtual void Prepare()
+        {
+            TransformToBurger(ingredients);
+        }
+
+        private void TransformToBurger(List<string> ingredientsList)
         {
             //Do some magic
         }
 
-        public override void SendToService()
+        public override MenuItem SendToService()
         {
             GetPrerequisites();
             Prepare();
-            // Send menu to customer
+            return base.SendToService();
         }
     }
 }
