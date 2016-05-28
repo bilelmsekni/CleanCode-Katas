@@ -1,5 +1,5 @@
 using System;
-using SolidPrinciplesRefactored.HardwareApi;
+using SolidPrinciplesRefactored.Hardware.Api;
 using SolidPrinciplesRefactored.Model;
 using SolidPrinciplesRefactored.Utilities;
 

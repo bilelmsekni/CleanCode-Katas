@@ -58,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hardware.Api\HpPrinter.cs" />
+    <Compile Include="Hardware.Api\IFax.cs" />
+    <Compile Include="Hardware.Api\IPrint.cs" />
+    <Compile Include="Hardware.Api\IScan.cs" />
     <Compile Include="Model\Constants.cs" />
     <Compile Include="Model\MenuItem.cs" />
     <Compile Include="Model\MenuItems\CheeseBurger.cs" />

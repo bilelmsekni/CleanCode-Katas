@@ -69,7 +69,7 @@
     <Compile Include="Model\OrderItem.cs" />
     <Compile Include="McBurgerRestaurantTests.cs" />
     <Compile Include="Services\CookingService.cs" />
-    <Compile Include="Hardware.Api\IPrinter.cs" />
+    <Compile Include="Hardware.Api\IMachine.cs" />
     <Compile Include="Utilities\BaseLogger.cs" />
     <Compile Include="Model\Receipt.cs" />
     <Compile Include="Utilities\Exceptions\RejectedCardException.cs" />

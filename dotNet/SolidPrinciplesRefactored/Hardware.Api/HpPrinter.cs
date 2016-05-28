@@ -1,8 +1,8 @@
 using SolidPrinciplesRefactored.Services;
 
-namespace SolidPrinciplesRefactored.HardwareApi
+namespace SolidPrinciplesRefactored.Hardware.Api
 {
-    public class HpPrinter
+    public class HpPrinter : IPrint
     {
         public void Print(Receipt receipt)
         {

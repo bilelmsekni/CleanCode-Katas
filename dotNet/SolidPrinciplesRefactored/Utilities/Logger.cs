@@ -13,5 +13,5 @@ namespace SolidPrinciplesRefactored.Utilities
         {
             //Logging infos
         }
-    }
+    }    
 }
