@@ -16,13 +16,15 @@ namespace SolidPrinciplesRefactored
         private IPaymentService paymentService;
         private ICookingService cookingService;
         private IPrintService printService;
+        private FakePaymentProcessor fakePaymentProcessor;
 
         [SetUp]
         public void SetUp()
         {
             fixture = new Fixture();
             calculatorService = new CalculatorService();
-            paymentService = new PaymentService();
+            fakePaymentProcessor = new FakePaymentProcessor();
+            paymentService = new PaymentService(fakePaymentProcessor);
             cookingService = new CookingService();
             printService = new PrintService();
             restaurant = new McBurgerRestaurant(calculatorService, paymentService, cookingService, printService);
@@ -141,6 +143,15 @@ namespace SolidPrinciplesRefactored
             var fakePrintReceipt = false;
 
             restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+        }
+
+        [Test]
+        public void Should_authorize_payment_when_contactless_and_amout_is_19()
+        {
+            var fakePaymentDetails = fixture.Build<PaymentDetails>()
+                .With(c => c.PaymentMethod, PaymentMethod.ContactLessCreditCard)
+                .Create();
+            paymentService.Invoking(x => x.Charge(fakePaymentDetails, 19)).ShouldNotThrow<UnAuthorizedContactLessPayment>();
         }
     }
 }
