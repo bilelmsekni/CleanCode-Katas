@@ -64,6 +64,7 @@
     <Compile Include="Model\MenuItems\Drink.cs" />
     <Compile Include="Model\MenuItems\CheeseBurgerMenu.cs" />
     <Compile Include="Model\PaymentMethod.cs" />
+    <Compile Include="Utilities\Exceptions\GatewayConnectionException.cs" />
     <Compile Include="Utilities\Exceptions\UnAuthorizedContactLessPayment.cs" />
     <Compile Include="Utilities\Exceptions\NotValidPaymentException.cs" />
     <Compile Include="Model\OrderItem.cs" />
